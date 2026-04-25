@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <script>
+      window.onerror = function(msg, url, lineNo, columnNo, error) {
+        var div = document.createElement('div');
+        div.style.position = 'fixed';
+        div.style.top = '0';
+        div.style.left = '0';
+        div.style.zIndex = '999999';
+        div.style.background = 'red';
+        div.style.color = 'white';
+        div.style.padding = '20px';
+        div.style.width = '100%';
+        div.innerHTML = '<h1>Global Error</h1><pre>' + msg + '\\n' + (error && error.stack ? error.stack : '') + '</pre>';
+        document.body.appendChild(div);
+        return false;
+      };
+      window.onunhandledrejection = function(event) {
+        var div = document.createElement('div');
+        div.style.position = 'fixed';
+        div.style.top = '0';
+        div.style.left = '0';
+        div.style.zIndex = '999999';
+        div.style.background = 'orange';
+        div.style.color = 'white';
+        div.style.padding = '20px';
+        div.style.width = '100%';
+        div.innerHTML = '<h1>Unhandled Promise Rejection</h1><pre>' + event.reason + '</pre>';
+        document.body.appendChild(div);
+      };
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الرحيق هربس | Alraheeq Herbs - Egyptian Herbs & Spices Exporter</title>
+    <meta name="description" content="الرحيق هربس - شركة مصرية متخصصة في تصدير الأعشاب والتوابل والبذور والخضروات المجففة إلى الأسواق العالمية. Alraheeq Herbs - Premium Egyptian herbs, spices, seeds and dehydrated vegetables exporter." />
+    <meta name="keywords" content="Egyptian herbs, spices export, seeds, dehydrated vegetables, الأعشاب المصرية, التوابل, البذور, الخضروات المجففة, تصدير" />
+    <meta name="author" content="Alraheeq Herbs" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://alraheeqherbs.com" />
+    <meta property="og:title" content="Alraheeq Herbs | Premium Egyptian Herbs & Spices Exporter" />
+    <meta property="og:description" content="Premium Egyptian herbs, spices, seeds and dehydrated vegetables for global markets." />
+    <meta property="og:image" content="https://cdn-ai.onspace.ai/onspace/project/uploads/MoJYwGH33bc9qvJ38ADo9Y/AlraheeqLogoWeb.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Alraheeq Herbs" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Alraheeq Herbs | Egyptian Herbs & Spices" />
+    <meta name="twitter:description" content="Premium Egyptian herbs, spices, seeds and dehydrated vegetables for global markets." />
+    <meta name="twitter:image" content="https://cdn-ai.onspace.ai/onspace/project/uploads/MoJYwGH33bc9qvJ38ADo9Y/AlraheeqLogoWeb.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Alraheeq Herbs",
+      "url": "https://alraheeqherbs.com",
+      "description": "Egyptian company specialized in exporting herbs, spices, seeds, and dehydrated vegetables to international markets.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+20-101-021-3937",
+        "email": "info@alraheeqherbs.com"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

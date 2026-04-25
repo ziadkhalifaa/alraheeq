@@ -1,0 +1,299 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "products": "Products",
+    "quality": "Quality",
+    "certificates": "Certificates",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "requestQuote": "Request a Quote",
+    "switchLang": "عربي"
+  },
+  "home": {
+    "hero": {
+      "badge": "From Egypt to the World",
+      "title": "Premium Egyptian",
+      "titleAccent": "Herbs & Spices",
+      "titleEnd": "for Global Markets",
+      "subtitle": "At Alraheeq Herbs, we deliver the richness of Egyptian agriculture to customers around the world through trusted sourcing, careful processing, and export-focused quality standards.",
+      "cta1": "Request a Quote",
+      "cta2": "Explore Products",
+      "scroll": "Discover More",
+      "stat1": "Export Countries",
+      "stat2": "Products Available",
+      "stat3": "Years Experience",
+      "stat4": "Trusted Clients"
+    },
+    "intro": {
+      "badge": "Our Value",
+      "title": "From Egyptian Origin to",
+      "titleAccent": "International Destination",
+      "text1": "We are committed to supplying natural Egyptian products that meet the expectations of importers, manufacturers, and global buyers seeking quality, reliability, and professional export service.",
+      "text2": "Trusted partnerships with the finest Egyptian farmers and suppliers to ensure the highest quality standards in every shipment.",
+      "feature1": "100% Natural Sources",
+      "feature2": "Strict Quality Control",
+      "feature3": "Professional Export",
+      "feature4": "Long-Term Partnerships"
+    },
+    "process": {
+      "badge": "Our Process",
+      "title": "From Source",
+      "titleAccent": "to Shipment",
+      "step1Title": "Selective Sourcing",
+      "step1Text": "We work with trusted growers and suppliers to source high-quality herbs, spices, seeds, and dehydrated vegetables that meet export requirements.",
+      "step2Title": "Inspection & Quality Assurance",
+      "step2Text": "Each batch is reviewed and handled with attention to cleanliness, consistency, and compliance with customer specifications.",
+      "step3Title": "Export & Delivery",
+      "step3Text": "We prepare shipments with professional coordination, reliable documentation, and efficient logistics to support smooth international delivery."
+    },
+    "why": {
+      "badge": "Why Us",
+      "title": "Why",
+      "titleAccent": "Alraheeq Herbs",
+      "r1Title": "Reliable Quality",
+      "r1Text": "We focus on supplying products with consistent standards and dependable export readiness.",
+      "r2Title": "Trusted Supply Network",
+      "r2Text": "Our strong sourcing relationships help us secure premium raw materials and maintain stable supply.",
+      "r3Title": "Professional Export Support",
+      "r3Text": "We understand international business requirements and aim to deliver a smooth and reliable export experience.",
+      "r4Title": "Long-Term Partnerships",
+      "r4Text": "We believe strong business relationships are built on trust, transparency, and consistent performance."
+    },
+    "categories": {
+      "badge": "Featured Categories",
+      "title": "Our Main",
+      "titleAccent": "Product Categories",
+      "herbs": "Herbs & Infusions",
+      "herbsDesc": "Premium Egyptian herbs with export-grade natural quality",
+      "seeds": "Seeds",
+      "seedsDesc": "Carefully selected seeds meeting market requirements",
+      "spices": "Spices",
+      "spicesDesc": "Egyptian spices with exceptional color, aroma and quality",
+      "dehydrated": "Dehydrated Vegetables",
+      "dehydratedDesc": "Dried vegetables for industry and international trade",
+      "viewAll": "View All Products"
+    },
+    "testimonials": {
+      "badge": "Client Reviews",
+      "title": "What Our",
+      "titleAccent": "Clients Say"
+    },
+    "cta": {
+      "badge": "Get Started",
+      "title": "Looking for a Reliable",
+      "titleAccent": "Egyptian Export Partner?",
+      "text": "Let Alraheeq Herbs support your business with premium natural products and dependable export service.",
+      "btn": "Contact Us",
+      "btn2": "Explore Products"
+    }
+  },
+  "about": {
+    "hero": {
+      "badge": "Get to Know Us",
+      "title": "About",
+      "titleAccent": "Alraheeq Herbs"
+    },
+    "intro": {
+      "text1": "Alraheeq Herbs is an Egyptian company specialized in exporting herbs, spices, seeds, and dehydrated vegetables to international markets.",
+      "text2": "We are dedicated to offering natural products of dependable quality while building strong partnerships with clients who value consistency, service, and professionalism.",
+      "text3": "We believe that successful export begins with the right source. That is why we pay close attention to product selection, handling, and preparation at every stage of the supply process."
+    },
+    "vision": {
+      "badge": "Our Vision",
+      "title": "Our Vision",
+      "text": "To become a trusted name in the global herbs and spices industry by delivering quality Egyptian products with professionalism, consistency, and care."
+    },
+    "mission": {
+      "badge": "Our Mission",
+      "title": "Our Mission",
+      "text": "To connect the value of Egyptian agriculture with international markets through reliable sourcing, careful quality control, and customer-focused export solutions."
+    },
+    "values": {
+      "badge": "Our Values",
+      "title": "Our Values",
+      "v1": "Quality",
+      "v2": "Trust",
+      "v3": "Transparency",
+      "v4": "Commitment",
+      "v5": "Long-Term Partnership"
+    },
+    "stats": {
+      "s1": "Countries",
+      "s1Label": "Export Markets",
+      "s2": "50+",
+      "s2Label": "Products",
+      "s3": "Egypt",
+      "s3Label": "Origin",
+      "s4": "100%",
+      "s4Label": "Natural"
+    }
+  },
+  "products": {
+    "hero": {
+      "badge": "Our Products",
+      "title": "Premium Egyptian Products",
+      "titleAccent": "for International Markets",
+      "subtitle": "At Alraheeq Herbs, we offer a carefully selected portfolio of Egyptian natural products prepared to meet diverse market needs and customer requirements."
+    },
+    "filter": {
+      "all": "All Products",
+      "herbs": "Herbs",
+      "seeds": "Seeds",
+      "spices": "Spices",
+      "dehydrated": "Dehydrated Vegetables"
+    },
+    "cta": {
+      "title": "For product lists, specifications, and quotations",
+      "subtitle": "please contact our team directly.",
+      "btn": "Contact Us"
+    },
+    "herbs": {
+      "title": "Herbs & Infusions",
+      "desc": "Wide range of Egyptian herbs known for their natural aroma, purity, and export quality."
+    },
+    "seeds": {
+      "title": "Seeds",
+      "desc": "Seeds sourced with attention to quality, cleanliness, and customer specifications."
+    },
+    "spices": {
+      "title": "Spices",
+      "desc": "Premium Egyptian spices with careful attention to color, aroma, appearance, and export suitability."
+    },
+    "dehydrated": {
+      "title": "Dehydrated Vegetables",
+      "desc": "Selected and prepared to meet the needs of food processors, traders, and global buyers."
+    }
+  },
+  "quality": {
+    "hero": {
+      "badge": "Our Commitment",
+      "title": "Quality at",
+      "titleAccent": "Every Step",
+      "subtitle": "At Alraheeq Herbs, quality is not limited to the final product. It is part of every stage, from sourcing and selection to preparation and export handling."
+    },
+    "intro": "We are committed to supplying products that meet customer expectations and support international market standards. We understand that consistency matters.",
+    "safety": {
+      "badge": "Food Safety",
+      "title": "A Strong Commitment to Food Safety",
+      "text": "Food safety is an essential part of our export process. We work with careful control and professional handling to support safe, compliant, and market-ready products across our supply chain."
+    },
+    "control": {
+      "badge": "Quality Control",
+      "title": "Careful Review and Product Evaluation",
+      "text": "Our quality control approach is based on checking each batch against agreed requirements and export expectations. We aim to deliver products with dependable consistency and professional presentation."
+    },
+    "sampling": {
+      "badge": "Inspection",
+      "title": "Attention to Detail from Batch to Batch",
+      "text": "We believe that accurate inspection and product review are essential for maintaining consistency and customer confidence. Each order is handled with care and attention to required standards."
+    },
+    "journeyTitle": "Quality Journey",
+    "journey1": "Sourcing",
+    "journey2": "Initial Inspection",
+    "journey3": "Quality Control",
+    "journey4": "Processing",
+    "journey5": "Packaging",
+    "journey6": "Shipment"
+  },
+  "certificates": {
+    "hero": {
+      "badge": "Certificates & Compliance",
+      "title": "Export Confidence",
+      "titleAccent": "Backed by Professional Standards"
+    },
+    "commitment": "Our goal is to provide confidence to our clients by ensuring that every shipment is prepared with care, clarity, and export readiness.",
+    "commitmentsTitle": "Our Export Commitments",
+    "productSafety": "Product Safety",
+    "productSafetyDesc": "Full compliance with international food safety standards",
+    "exportDocs": "Export Documents",
+    "exportDocsDesc": "Complete preparation and accurate organization of export documents",
+    "intlStandards": "International Standards",
+    "intlStandardsDesc": "Compliance with international market requirements at every stage",
+    "guaranteedQuality": "Guaranteed Quality",
+    "guaranteedQualityDesc": "Consistent quality standards in every shipment",
+    "docsBadge": "Documentation",
+    "docsTitle": "Export Documentation",
+    "docsSubtitle": "We prepare all required documents for export operations",
+    "doc1": "Certificate of Origin",
+    "doc2": "Certificate of Analysis",
+    "doc3": "Commercial Invoice",
+    "doc4": "Packing List",
+    "doc5": "Bill of Lading",
+    "doc6": "Health Certificate"
+  },
+  "faq": {
+    "hero": {
+      "badge": "Help Center",
+      "title": "Frequently Asked",
+      "titleAccent": "Questions"
+    },
+    "q1": "What products do you export?",
+    "a1": "We export Egyptian herbs, spices, seeds, and dehydrated vegetables prepared for international markets.",
+    "q2": "How do you maintain product quality?",
+    "a2": "We follow a careful process that includes sourcing, handling, product review, and export preparation to support consistency and quality.",
+    "q3": "Can you supply based on customer specifications?",
+    "a3": "Yes, we work to align our products with customer requirements whenever possible.",
+    "q4": "Do you support export documents and shipment coordination?",
+    "a4": "Yes, we prepare and coordinate export requirements according to the order and destination needs.",
+    "q5": "What is your lead time?",
+    "a5": "Lead time depends on the product, quantity, and destination. We always aim for efficient preparation and timely delivery.",
+    "a6": "Minimum quantities vary by product type. Please contact our team for detailed information based on your specific needs.",
+    "stillQuestionsTitle": "Still have questions?",
+    "stillQuestionsSubtitle": "Our team is ready to answer all your inquiries",
+    "contactBtn": "Contact Us"
+  },
+  "contact": {
+    "hero": {
+      "badge": "Reach Out",
+      "title": "Let's Build",
+      "titleAccent": "Business Together",
+      "subtitle": "We are ready to support your sourcing needs with premium Egyptian herbs, spices, seeds, and dehydrated vegetables."
+    },
+    "info": {
+      "company": "Alraheeq Herbs",
+      "country": "Egypt",
+      "address": "Beni Suef - Samasṭa Center - Mansha Abu Milih",
+      "email": "info@alraheeqherbs.com",
+      "phone": "+20 1010213937",
+      "whatsapp": "Chat on WhatsApp"
+    },
+    "form": {
+      "title": "Send Your Inquiry",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "example@company.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+1 ...",
+      "company": "Company Name",
+      "companyPlaceholder": "Your company name",
+      "product": "Product of Interest",
+      "productPlaceholder": "Herbs, spices, seeds...",
+      "message": "Inquiry Details",
+      "messagePlaceholder": "Write your inquiry details or requirements...",
+      "submit": "Send Request",
+      "sending": "Sending...",
+      "success": "Your inquiry has been sent successfully! We will contact you soon.",
+      "successTitle": "Message Sent!",
+      "sendAnother": "Send Another Inquiry"
+    },
+    "cta": {
+      "title": "Get in touch with our team for quotations, product details, and export inquiries.",
+      "btn": "Get a Quote"
+    }
+  },
+  "footer": {
+    "tagline": "Egyptian Herbs & Spices for Global Markets",
+    "links": "Quick Links",
+    "products": "Products",
+    "contact": "Contact",
+    "rights": "© 2025 Alraheeq Herbs. All rights reserved."
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "subtitle": "Sorry, the page you are looking for does not exist or has been moved.",
+    "goHome": "Go Home",
+    "contactUs": "Contact Us"
+  }
+}
