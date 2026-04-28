@@ -165,7 +165,7 @@ export default function Contact() {
               >
                 <iframe
                   title="Alraheeq Herbs Location"
-                  src="https://maps.google.com/maps?q=Manshat+Abu+Malih,+Somosta,+Beni+Suef,+Egypt&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=منشاة+أبو+مليح،+سمسطا،+بني+سويف&t=&z=14&ie=UTF8&iwloc=&output=embed"
                   className="w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
                   style={{ border: 0 }}
                   loading="lazy"
