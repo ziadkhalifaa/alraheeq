@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { blogApi } from '@/api/api';
 import { useLanguage } from '@/hooks/useLanguage';
-import { getSafeValue } from '@/editor/utils';
+import { getSafeValue, getImgUrl } from '@/editor/utils';
 import { Calendar, User, ArrowLeft, ArrowRight, Share2, Facebook, Twitter, Linkedin as LinkedIn } from 'lucide-react';
 import SectionBadge from '@/components/features/SectionBadge';
 
@@ -48,7 +48,7 @@ export default function BlogDetail() {
       <section className="relative w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-16">
         <div className="relative h-[50vh] min-h-[400px] max-h-[600px] rounded-[32px] overflow-hidden shadow-2xl">
           <img 
-            src={post.image_url || 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&q=80'} 
+            src={getImgUrl(post.image_url || 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&q=80')} 
             alt={title}
             className="absolute inset-0 w-full h-full object-cover"
           />

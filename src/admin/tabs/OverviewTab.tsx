@@ -34,10 +34,10 @@ export default function OverviewTab() {
   
   // Handle both array and object responses (legacy support)
   const products = Array.isArray(productsRes) ? productsRes : (productsRes?.data || []);
-  const productsCount = productsRes?.total !== undefined ? productsRes.total : products.length;
+  const productsCount = productsRes?.meta?.total ?? productsRes?.total ?? products.length;
   
   const blogData = Array.isArray(blogRes) ? blogRes : (blogRes?.data || []);
-  const blogCount = blogRes?.total !== undefined ? blogRes.total : blogData.length;
+  const blogCount = blogRes?.meta?.total ?? blogRes?.total ?? blogData.length;
 
   // Mock trend data for sparklines (in a real app, this would come from the API)
   const mockTrend = [

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
+export const BASE_URL = API_URL.endsWith('/api') ? API_URL.replace('/api', '') : API_URL;
 
 const api = axios.create({
   baseURL: API_URL,
@@ -25,7 +26,7 @@ api.interceptors.request.use(async (config) => {
 
 // Remove manual token interceptor as we are using HttpOnly cookies
 export const productApi = {
-  getAll: (category?: string, limit?: number) => api.get('/products', { params: { category, limit } }),
+  getAll: (category?: string, page?: number, limit?: number) => api.get('/products', { params: { category, page, limit } }),
   getBySlug: (slug: string) => api.get(`/products/${slug}`),
   create: (data: any) => api.post('/admin/products', data),
   update: (id: number, data: any) => api.put(`/admin/products/${id}`, data),

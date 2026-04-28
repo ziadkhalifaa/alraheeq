@@ -1,25 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, MessageSquare, Send, CheckCircle2, Leaf } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Mail, Phone, MapPin, MessageSquare, Send, CheckCircle2, Leaf, Globe, Building2, User, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/hooks/useLanguage';
 import SectionBadge from '@/components/features/SectionBadge';
+import { EditableText } from '@/editor/EditableText';
 import { toast } from 'sonner';
 import { inquiryApi } from '@/api/api';
-
-function useRevealObserver() {
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add('revealed');
-        });
-      },
-      { threshold: 0.1 }
-    );
-    const elements = document.querySelectorAll('.animate-reveal, .animate-reveal-left, .animate-reveal-right, .animate-scale-in');
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-}
 
 interface FormData {
   name: string;
@@ -32,7 +18,7 @@ interface FormData {
 
 export default function Contact() {
   const { t, isRTL, getPath } = useLanguage();
-  useRevealObserver();
+  const containerRef = useRef(null);
 
   const [form, setForm] = useState<FormData>({
     name: '', email: '', phone: '', company: '', product: '', message: '',
@@ -61,9 +47,9 @@ export default function Contact() {
   };
 
   const contactItems = [
-    { icon: Mail, label: isRTL ? 'البريد الإلكتروني' : 'Email', value: 'info@alraheeqherbs.com', href: 'mailto:info@alraheeqherbs.com' },
-    { icon: Phone, label: isRTL ? 'الهاتف' : 'Phone', value: '+20 1010213937', href: 'tel:+201010213937' },
-    { icon: MapPin, label: isRTL ? 'العنوان' : 'Address', value: t('contact.info.address'), href: '#' },
+    { icon: Mail, label: isRTL ? 'البريد الإلكتروني' : 'Email', value: 'info@alraheeqherbs.com', href: 'mailto:info@alraheeqherbs.com', color: 'bg-blue-500' },
+    { icon: Phone, label: isRTL ? 'الهاتف' : 'Phone', value: '+20 1010213937', href: 'tel:+201010213937', color: 'bg-[#86c434]' },
+    { icon: MapPin, label: isRTL ? 'العنوان' : 'Address', value: t('contact.info.address'), href: '#', color: 'bg-emerald-500' },
   ];
 
   const productOptions = [
@@ -74,254 +60,257 @@ export default function Contact() {
     { value: 'mixed', labelAr: 'منتجات متعددة', labelEn: 'Mixed Products' },
   ];
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] } }
+  };
+
   return (
-    <main className="pt-20">
-      {/* Hero */}
-      <section className="relative py-28 overflow-hidden">
-        <div className="absolute inset-0 bg-brand-gradient" />
-        <div className="absolute inset-0 pattern-dots opacity-10" />
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-brand-beige to-transparent" />
-        <div className="absolute top-12 right-12 opacity-20 animate-float">
-          <Leaf className="w-24 h-24 text-brand-gold" />
+    <main className="overflow-hidden bg-white pt-20" ref={containerRef}>
+      {/* High-End Modern Hero */}
+      <section className="relative py-32 bg-[#1c4b42] overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 w-full h-full pattern-grid" />
         </div>
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <SectionBadge className="mb-4 !bg-white/10 !text-white !border-white/20">
-            {t('contact.hero.badge')}
-          </SectionBadge>
-          <h1 className={`text-5xl lg:text-6xl font-bold text-white mt-4 mb-4 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+        
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="relative z-10 max-w-7xl mx-auto px-4 text-center"
+        >
+          <motion.div variants={fadeInUp}>
+            <SectionBadge className="mb-8 bg-white/10 text-white border-white/20 backdrop-blur-md">
+              <EditableText contentKey="contact.hero.badge" defaultAr="تواصل معنا" defaultEn="Contact Us" />
+            </SectionBadge>
+          </motion.div>
+          <motion.h1 
+            variants={fadeInUp}
+            className={`text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}
+          >
             {t('contact.hero.title')}{' '}
-            <span className="text-brand-gold">{t('contact.hero.titleAccent')}</span>
-          </h1>
-          <p className="text-white/75 text-lg max-w-2xl mx-auto">{t('contact.hero.subtitle')}</p>
-        </div>
+            <span className="text-[#86c434] block mt-2">{t('contact.hero.titleAccent')}</span>
+          </motion.h1>
+          <motion.p variants={fadeInUp} className="text-white/70 text-xl max-w-3xl mx-auto leading-relaxed font-medium">
+            {t('contact.hero.subtitle')}
+          </motion.p>
+        </motion.div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-20 bg-brand-beige">
+      {/* Interactive Contact & Form Section */}
+      <section className="py-32 bg-[#f7fbf2] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-            {/* Contact Info (Left) */}
-            <div className="lg:col-span-2 space-y-6 animate-reveal-left">
-              {/* Company card */}
-              <div className="glass-card rounded-3xl p-8 border border-brand-gold/15">
-                <img
-                  src="https://cdn-ai.onspace.ai/onspace/project/uploads/MoJYwGH33bc9qvJ38ADo9Y/AlraheeqLogoWeb.png"
-                  alt="Alraheeq Herbs"
-                  className="h-14 w-auto object-contain mb-5"
-                />
-                <h2 className={`text-xl font-bold text-gray-900 mb-1 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
-                  {t('contact.info.company')}
-                </h2>
-                <p className="text-brand-green text-sm font-medium mb-5">{t('contact.info.country')}</p>
-
-                <div className="space-y-4">
-                  {contactItems.map((item, i) => {
-                    const Icon = item.icon;
-                    return (
-                      <a
-                        key={i}
-                        href={item.href}
-                        className="flex items-start gap-4 p-3 rounded-xl hover:bg-brand-green/5 transition-colors group"
-                      >
-                        <div className="w-10 h-10 rounded-xl bg-brand-gradient flex items-center justify-center shrink-0 shadow-brand group-hover:scale-110 transition-transform">
-                          <Icon className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                          <p className="text-xs text-gray-400 mb-0.5">{item.label}</p>
-                          <p className="text-sm font-medium text-gray-700 group-hover:text-brand-green transition-colors" dir="ltr">
-                            {item.value}
-                          </p>
-                        </div>
-                      </a>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* WhatsApp CTA */}
-              <a
-                href="https://wa.me/201010213937"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-5 rounded-2xl bg-[#25D366] text-white hover:bg-[#1da859] transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-xl group"
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            
+            {/* Contact Cards (Left) */}
+            <div className="lg:col-span-4 space-y-8">
+              <motion.div 
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="bg-white p-10 rounded-[3rem] shadow-2xl border border-[#1c4b42]/5 relative overflow-hidden"
               >
-                <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
-                  <svg className="w-7 h-7 fill-white" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#1c4b42]/5 rounded-full -mr-16 -mt-16" />
+                <h3 className={`text-3xl font-black text-[#1c4b42] mb-8 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+                  {isRTL ? 'معلومات التواصل' : 'Contact Info'}
+                </h3>
+                <div className="space-y-6">
+                  {contactItems.map((item, i) => (
+                    <motion.a
+                      key={i}
+                      href={item.href}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                      className="flex items-center gap-6 p-4 rounded-3xl hover:bg-[#f7fbf2] transition-all group"
+                    >
+                      <div className={`w-14 h-14 ${item.color} rounded-[1.25rem] flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform`}>
+                        <item.icon className="w-7 h-7 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">{item.label}</p>
+                        <p className="text-lg font-black text-[#1c4b42] group-hover:text-[#86c434] transition-colors" dir="ltr">{item.value}</p>
+                      </div>
+                    </motion.a>
+                  ))}
                 </div>
-                <div>
-                  <p className="font-semibold">{t('contact.info.whatsapp')}</p>
-                  <p className="text-white/80 text-sm" dir="ltr">+20 1010213937</p>
-                </div>
-              </a>
 
-              {/* Map placeholder */}
-              <div className="rounded-3xl overflow-hidden h-48 bg-brand-green/10 border border-brand-green/20 relative">
+                <div className="mt-12 pt-12 border-t border-gray-100">
+                  <h4 className="text-gray-900 font-bold mb-6">{isRTL ? 'تواصل معنا عبر واتساب' : 'Chat via WhatsApp'}</h4>
+                  <a
+                    href="https://wa.me/201010213937"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-6 bg-[#25D366] rounded-[2rem] text-white shadow-xl hover:scale-[1.02] transition-all group"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
+                        <MessageSquare className="w-6 h-6" />
+                      </div>
+                      <span className="font-black text-lg">{isRTL ? 'ابدأ الدردشة' : 'Start Chatting'}</span>
+                    </div>
+                    <Send className={`w-6 h-6 transition-transform group-hover:translate-x-2 ${isRTL ? 'rotate-180 group-hover:-translate-x-2' : ''}`} />
+                  </a>
+                </div>
+              </motion.div>
+
+              {/* Map Card */}
+              <motion.div 
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="h-[300px] rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl relative"
+              >
                 <iframe
                   title="Alraheeq Herbs Location"
-                  src="https://maps.google.com/maps?q=Beni+Suef,+Egypt&t=&z=9&ie=UTF8&iwloc=&output=embed"
-                  className="w-full h-full"
+                  src="https://maps.google.com/maps?q=Manshat+Abu+Malih,+Somosta,+Beni+Suef,+Egypt&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  className="w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
                   style={{ border: 0 }}
                   loading="lazy"
                 />
-              </div>
+              </motion.div>
             </div>
 
-            {/* Contact Form (Right) */}
-            <div className="lg:col-span-3 animate-reveal-right">
-              <div className="glass-card rounded-3xl p-8 md:p-10 border border-brand-gold/15">
-                {sent ? (
-                  <div className="flex flex-col items-center justify-center py-16 text-center">
-                    <div className="w-20 h-20 rounded-full bg-brand-green/10 flex items-center justify-center mb-5">
-                      <CheckCircle2 className="w-10 h-10 text-brand-green" />
-                    </div>
-                    <h3 className={`text-2xl font-bold text-gray-900 mb-3 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
-                      {t('contact.form.successTitle')}
-                    </h3>
-                    <p className="text-gray-500 max-w-sm">{t('contact.form.success')}</p>
-                    <button
-                      onClick={() => { setSent(false); setForm({ name: '', email: '', phone: '', company: '', product: '', message: '' }); }}
-                      className="mt-6 px-6 py-3 rounded-xl border border-brand-green/30 text-brand-green font-medium hover:bg-brand-green/5 transition-colors"
+            {/* Premium Contact Form (Right) */}
+            <div className="lg:col-span-8">
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-white p-12 md:p-16 rounded-[4rem] shadow-2xl border border-[#1c4b42]/5"
+              >
+                <AnimatePresence mode="wait">
+                  {sent ? (
+                    <motion.div 
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-20"
                     >
-                      {t('contact.form.sendAnother')}
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <div className="flex items-center gap-3 mb-8">
-                      <div className="w-12 h-12 rounded-xl bg-brand-gradient flex items-center justify-center shadow-brand">
-                        <MessageSquare className="w-6 h-6 text-white" />
+                      <div className="w-24 h-24 bg-[#f7fbf2] rounded-[2.5rem] flex items-center justify-center mx-auto mb-8">
+                        <CheckCircle2 className="w-12 h-12 text-[#86c434]" />
                       </div>
-                      <div>
-                        <h2 className={`text-xl font-bold text-gray-900 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
-                          {t('contact.form.title')}
-                        </h2>
-                        <p className="text-gray-400 text-sm">{t('contact.cta.title')}</p>
-                      </div>
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {/* Name */}
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                            {t('contact.form.name')} <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            name="name"
-                            value={form.name}
-                            onChange={handleChange}
-                            placeholder={t('contact.form.namePlaceholder')}
-                            required
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition-all bg-white text-sm"
-                          />
-                        </div>
-                        {/* Email */}
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                            {t('contact.form.email')} <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            value={form.email}
-                            onChange={handleChange}
-                            placeholder={t('contact.form.emailPlaceholder')}
-                            required
-                            dir="ltr"
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition-all bg-white text-sm"
-                          />
-                        </div>
-                        {/* Phone */}
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                            {t('contact.form.phone')}
-                          </label>
-                          <input
-                            type="tel"
-                            name="phone"
-                            value={form.phone}
-                            onChange={handleChange}
-                            placeholder={t('contact.form.phonePlaceholder')}
-                            dir="ltr"
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition-all bg-white text-sm"
-                          />
-                        </div>
-                        {/* Company */}
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                            {t('contact.form.company')}
-                          </label>
-                          <input
-                            type="text"
-                            name="company"
-                            value={form.company}
-                            onChange={handleChange}
-                            placeholder={t('contact.form.companyPlaceholder')}
-                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition-all bg-white text-sm"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Product */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                          {t('contact.form.product')}
-                        </label>
-                        <select
-                          name="product"
-                          value={form.product}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition-all bg-white text-sm text-gray-700 appearance-none"
-                        >
-                          <option value="">{t('contact.form.productPlaceholder')}</option>
-                          {productOptions.map((opt) => (
-                            <option key={opt.value} value={opt.value}>
-                              {isRTL ? opt.labelAr : opt.labelEn}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* Message */}
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                          {t('contact.form.message')} <span className="text-red-500">*</span>
-                        </label>
-                        <textarea
-                          name="message"
-                          value={form.message}
-                          onChange={handleChange}
-                          placeholder={t('contact.form.messagePlaceholder')}
-                          required
-                          rows={5}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/10 transition-all bg-white text-sm resize-none"
-                        />
-                      </div>
-
+                      <h3 className="text-4xl font-black text-[#1c4b42] mb-6">{t('contact.form.successTitle')}</h3>
+                      <p className="text-gray-500 text-xl max-w-md mx-auto mb-10">{t('contact.form.success')}</p>
                       <button
-                        type="submit"
-                        disabled={sending}
-                        className="w-full btn-magnetic flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-brand-gradient text-white font-semibold shadow-brand hover:shadow-brand-lg transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+                        onClick={() => setSent(false)}
+                        className="px-10 py-5 bg-[#1c4b42] text-white font-black rounded-2xl hover:bg-[#86c434] transition-all"
                       >
-                        {sending ? (
-                          <>
-                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            {t('contact.form.sending')}
-                          </>
-                        ) : (
-                          <>
-                            <Send className="w-5 h-5" />
-                            {t('contact.form.submit')}
-                          </>
-                        )}
+                        {t('contact.form.sendAnother')}
                       </button>
-                    </form>
-                  </>
-                )}
-              </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div key="form">
+                      <div className="flex items-center gap-4 mb-12">
+                        <div className="w-16 h-16 bg-[#1c4b42] rounded-2xl flex items-center justify-center">
+                          <Send className="w-8 h-8 text-white" />
+                        </div>
+                        <div>
+                          <h2 className={`text-4xl font-black text-[#1c4b42] ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+                            {t('contact.form.title')}
+                          </h2>
+                          <p className="text-gray-400 font-bold">{t('contact.cta.title')}</p>
+                        </div>
+                      </div>
+
+                      <form onSubmit={handleSubmit} className="space-y-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          <div className="relative group">
+                            <label className="block text-sm font-black text-[#1c4b42] mb-2 uppercase tracking-widest">{t('contact.form.name')} *</label>
+                            <div className="relative">
+                              <User className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#86c434] transition-colors`} size={20} />
+                              <input 
+                                required name="name" value={form.name} onChange={handleChange}
+                                className={`w-full ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-5 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#86c434] focus:bg-white outline-none transition-all font-bold`}
+                                placeholder={t('contact.form.namePlaceholder')}
+                              />
+                            </div>
+                          </div>
+                          
+                          <div className="relative group">
+                            <label className="block text-sm font-black text-[#1c4b42] mb-2 uppercase tracking-widest">{t('contact.form.email')} *</label>
+                            <div className="relative">
+                              <Mail className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#86c434] transition-colors`} size={20} />
+                              <input 
+                                type="email" required name="email" value={form.email} onChange={handleChange} dir="ltr"
+                                className={`w-full ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-5 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#86c434] focus:bg-white outline-none transition-all font-bold`}
+                                placeholder={t('contact.form.emailPlaceholder')}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="relative group">
+                            <label className="block text-sm font-black text-[#1c4b42] mb-2 uppercase tracking-widest">{t('contact.form.phone')}</label>
+                            <div className="relative">
+                              <Phone className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#86c434] transition-colors`} size={20} />
+                              <input 
+                                name="phone" value={form.phone} onChange={handleChange} dir="ltr"
+                                className={`w-full ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-5 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#86c434] focus:bg-white outline-none transition-all font-bold`}
+                                placeholder={t('contact.form.phonePlaceholder')}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="relative group">
+                            <label className="block text-sm font-black text-[#1c4b42] mb-2 uppercase tracking-widest">{t('contact.form.company')}</label>
+                            <div className="relative">
+                              <Building2 className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#86c434] transition-colors`} size={20} />
+                              <input 
+                                name="company" value={form.company} onChange={handleChange}
+                                className={`w-full ${isRTL ? 'pr-12 pl-4' : 'pl-12 pr-4'} py-5 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#86c434] focus:bg-white outline-none transition-all font-bold`}
+                                placeholder={t('contact.form.companyPlaceholder')}
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="relative group">
+                          <label className="block text-sm font-black text-[#1c4b42] mb-2 uppercase tracking-widest">{t('contact.form.product')}</label>
+                          <div className="relative">
+                            <Leaf className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#86c434] transition-colors`} size={20} />
+                            <select 
+                              name="product" value={form.product} onChange={handleChange}
+                              className={`w-full ${isRTL ? 'pr-12 pl-12' : 'pl-12 pr-12'} py-5 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#86c434] focus:bg-white outline-none transition-all font-bold appearance-none`}
+                            >
+                              <option value="">{t('contact.form.productPlaceholder')}</option>
+                              {productOptions.map((opt) => (
+                                <option key={opt.value} value={opt.value}>{isRTL ? opt.labelAr : opt.labelEn}</option>
+                              ))}
+                            </select>
+                            <ChevronDown className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none`} />
+                          </div>
+                        </div>
+
+                        <div className="relative group">
+                          <label className="block text-sm font-black text-[#1c4b42] mb-2 uppercase tracking-widest">{t('contact.form.message')} *</label>
+                          <textarea 
+                            required name="message" value={form.message} onChange={handleChange}
+                            rows={5}
+                            className="w-full px-6 py-5 rounded-3xl bg-gray-50 border-2 border-transparent focus:border-[#86c434] focus:bg-white outline-none transition-all font-bold resize-none"
+                            placeholder={t('contact.form.messagePlaceholder')}
+                          />
+                        </div>
+
+                        <button 
+                          disabled={sending}
+                          className="w-full py-6 bg-[#1c4b42] text-white font-black text-xl rounded-[2rem] shadow-2xl hover:bg-[#86c434] hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-4"
+                        >
+                          {sending ? (
+                            <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                          ) : (
+                            <>
+                              <Send size={24} />
+                              {t('contact.form.submit')}
+                            </>
+                          )}
+                        </button>
+                      </form>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </div>
           </div>
         </div>

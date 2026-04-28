@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { motion, AnimatePresence } from 'framer-motion';
+import InquiryDetailModal from './InquiryDetailModal';
 
 export default function InquiriesTab() {
   const queryClient = useQueryClient();
@@ -195,6 +196,12 @@ export default function InquiriesTab() {
       </div>
 
       {viewMode === 'table' ? renderTable() : renderKanban()}
+
+      <InquiryDetailModal 
+        inquiry={validInquiries.find((i: any) => i.id === selectedInquiryId)}
+        onClose={() => setSelectedInquiryId(null)}
+        onUpdateStatus={(id, status) => updateInquiryStatus.mutate({ id, status })}
+      />
     </div>
   );
 }

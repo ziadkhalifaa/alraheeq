@@ -1,11 +1,10 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { blogApi } from '@/api/api';
 import { useLanguage } from '@/hooks/useLanguage';
-import { getSafeValue } from '@/editor/utils';
+import { getSafeValue, getImgUrl } from '@/editor/utils';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { Link } from 'react-router-dom';
-import { Calendar, User, ArrowRight, ArrowLeft, Leaf } from 'lucide-react';
+import { Calendar, User, ArrowRight, ArrowLeft, Leaf, FileText } from 'lucide-react';
 import SectionBadge from '@/components/features/SectionBadge';
 
 export default function Blog() {
@@ -21,23 +20,23 @@ export default function Blog() {
   return (
     <main className="pt-20">
       {/* Hero */}
-      <section className="relative py-28 bg-brand-gradient overflow-hidden">
+      <section className="relative py-20 bg-brand-gradient overflow-hidden">
         <div className="absolute inset-0 pattern-dots opacity-10" />
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-brand-beige to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-brand-beige to-transparent" />
         
-        <div className="absolute top-12 right-12 opacity-20 animate-float">
-          <Leaf className="w-24 h-24 text-brand-gold" />
+        <div className="absolute top-8 right-8 opacity-20 animate-float">
+          <Leaf className="w-16 h-16 text-brand-gold" />
         </div>
-
+ 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SectionBadge className="mb-4 !bg-white/10 !text-white !border-white/20">
             {isRTL ? 'المدونة والأخبار' : 'Blog & News'}
           </SectionBadge>
-          <h1 className={`text-5xl lg:text-6xl font-bold text-white mt-4 mb-4 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+          <h1 className={`text-3xl md:text-5xl font-bold text-white mt-4 mb-4 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
             {isRTL ? 'اكتشف عالم' : 'Discover the World of'}{' '}
             <span className="text-brand-gold">{isRTL ? 'الأعشاب الطبيعية' : 'Natural Herbs'}</span>
           </h1>
-          <p className="text-white/75 text-lg max-w-2xl mx-auto">
+          <p className="text-white/75 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
             {isRTL 
               ? 'مقالات حصرية عن جودة الأعشاب المصرية وفوائدها الصحية وطرق تصديرها للعالم.' 
               : 'Exclusive articles on the quality of Egyptian herbs, their health benefits, and how they are exported globally.'}
@@ -61,9 +60,9 @@ export default function Blog() {
                   key={post.id}
                   className="animate-reveal group bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
                 >
-                  <Link to={getPath(`/blog/${post.slug}`)} className="block relative aspect-[16/10] overflow-hidden">
+                  <Link to={getPath(`/blog/${post.slug}`)} className="block relative aspect-video overflow-hidden">
                     <img 
-                      src={post.image_url || 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&q=80'} 
+                      src={getImgUrl(post.image_url || 'https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&q=80')} 
                       alt={getSafeValue(post.title, isRTL ? 'ar' : 'en')}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />

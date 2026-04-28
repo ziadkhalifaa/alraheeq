@@ -60,7 +60,15 @@ export default function Navbar() {
     },
     { href: '/quality', label: t('nav.quality') },
     { href: '/certificates', label: t('nav.certificates') },
-    { href: '/faq', label: t('nav.faq') },
+    { 
+      href: '/faq', 
+      label: t('nav.faq'),
+      hasDropdown: true,
+      children: [
+        { href: '/faq', label: t('nav.faq') },
+        { href: '/blog', label: isRTL ? 'المقالات' : 'Articles' },
+      ]
+    },
     { href: '/contact', label: t('nav.contact') },
   ];
 
@@ -76,7 +84,7 @@ export default function Navbar() {
       <div className="scroll-progress" id="scroll-progress" style={{ width: '0%' }} />
 
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
           showSolid ? 'navbar-glass shadow-sm py-3' : 'bg-transparent py-5'
         }`}
       >

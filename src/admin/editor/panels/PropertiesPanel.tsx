@@ -19,7 +19,8 @@ import {
 export default function PropertiesPanel() {
   const { pageContent, updateContent, selectedId } = useEditor();
   
-  const sections = pageContent.sections || [];
+  const rawSections = pageContent.sections;
+  const sections: any[] = Array.isArray(rawSections) ? rawSections : [];
   const selectedSection = sections.find((s: any) => s.id === selectedId);
 
   if (!selectedId) {

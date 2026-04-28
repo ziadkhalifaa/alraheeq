@@ -16,9 +16,9 @@ export default function ProductsTab() {
   const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'draft'>('all');
 
-  const { data: productsRes, isLoading: loadingProducts } = useQuery({
+  const { data: response, isLoading: loadingProducts } = useQuery({
     queryKey: ['admin-products'],
-    queryFn: () => productApi.getAll(undefined, 100).then(res => res.data),
+    queryFn: () => productApi.getAll(undefined, 1, 100).then(res => res.data),
   });
 
   const { data: perfRes } = useQuery({
@@ -34,7 +34,7 @@ export default function ProductsTab() {
     },
   });
 
-  const products = Array.isArray(productsRes) ? productsRes : (productsRes?.data || []);
+  const products = response?.data || [];
   
   const filtered = products.filter((p: any) => {
     const matchesSearch = p.name?.en?.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -46,3 +46,19 @@ export function getSafeValue(value: any, lang: 'ar' | 'en' | string): string {
   // Primitive values (number, boolean) are safely converted to string
   return String(value);
 }
+
+import { BASE_URL } from '@/api/api';
+
+/**
+ * Ensures an image URL is absolute. If it starts with /uploads, it prefixes it with BASE_URL.
+ */
+export function getImgUrl(url: string | null | undefined): string {
+  if (!url) return '';
+  if (url.startsWith('http') || url.startsWith('data:')) return url;
+  
+  // Ensure we don't have double slashes
+  const baseUrl = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+  const path = url.startsWith('/') ? url : `/${url}`;
+  
+  return `${baseUrl}${path}`;
+}

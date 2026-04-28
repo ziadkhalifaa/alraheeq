@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useEditor } from './EditorContext';
 import { MediaLibraryModal } from '../admin/editor/MediaLibraryModal';
+import { getImgUrl } from './utils';
 
 interface EditableImageProps {
   contentKey: string;
@@ -22,7 +23,7 @@ export function EditableImage({
 
   // Get current content with fallback
   const contentValue = pageContent[contentKey];
-  const displaySrc = contentValue?.src || defaultSrc;
+  const displaySrc = getImgUrl(contentValue?.src || defaultSrc);
   
   // Handle alt text (which could be an object)
   const rawAlt = contentValue?.alt || alt;

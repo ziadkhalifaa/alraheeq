@@ -7,10 +7,12 @@ import {
 } from 'lucide-react';
 import { Reorder } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 export default function LayersPanel() {
   const { pageContent, updateContent } = useEditor();
-  const sections = pageContent.sections || [];
+  const rawSections = pageContent.sections;
+  const sections: any[] = Array.isArray(rawSections) ? rawSections : [];
 
   const handleReorder = (newSections: any[]) => {
     updateContent('sections', newSections);
@@ -57,7 +59,7 @@ export default function LayersPanel() {
                   <GripVertical size={16} />
                 </div>
                 <div className="flex-grow">
-                  <div className="text-xs font-bold text-gray-700 capitalize">{section.type.replace(/-/g, ' ')}</div>
+                  <div className="text-xs font-bold text-gray-700 capitalize">{section.type?.replace(/-/g, ' ')}</div>
                   <div className="text-[10px] text-gray-400 truncate max-w-[120px]">{section.id}</div>
                 </div>
                 <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1 transition-opacity">
@@ -78,5 +80,3 @@ export default function LayersPanel() {
     </div>
   );
 }
-
-import { Badge } from '@/components/ui/badge';

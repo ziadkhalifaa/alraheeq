@@ -34,7 +34,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { productApi } from '@/api/api';
 import { useLanguage } from '@/hooks/useLanguage';
-import { getSafeValue } from '@/editor/utils';
+import { getSafeValue, getImgUrl } from '@/editor/utils';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, ArrowRight, MapPin, Package, ShieldCheck, Check, ChevronLeft, ChevronRight, Leaf } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -64,11 +64,10 @@ function ProductDetailContent() {
     enabled: !!slug,
   });
 
+  // View tracking is handled automatically by the backend when getBySlug is called
   useEffect(() => {
-    if (product?.id) {
-      trackEvent('view', product.id);
-    }
-  }, [product?.id, trackEvent]);
+    // We only track special events here, not basic views
+  }, [product?.id]);
 
   if (isLoading) {
     return (
@@ -133,259 +132,215 @@ function ProductDetailContent() {
 
 
   return (
-    <main className="pt-24 pb-20">
-        <Helmet>
-          <title>{metaTitle}</title>
-          <meta name="description" content={metaDesc} />
-          <meta property="og:title" content={metaTitle} />
-          <meta property="og:description" content={metaDesc} />
-          <meta property="og:image" content={images[0] || ''} />
-        </Helmet>
+    <main className="min-h-screen bg-white pt-24 pb-20">
+      <Helmet>
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDesc} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDesc} />
+        <meta property="og:image" content={images[0] || ''} />
+      </Helmet>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumbs */}
-          <nav className="mb-8 flex items-center gap-2 text-sm text-gray-500 font-medium">
-            <Link to={getPath("/")} className="hover:text-brand-green transition-colors">Home</Link>
-            <Arrow className="w-3 h-3" />
-            <Link to={getPath("/products")} className="hover:text-brand-green transition-colors">Products</Link>
-            <Arrow className="w-3 h-3" />
-            <span className="text-gray-900">{name}</span>
-          </nav>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumbs */}
+        <nav className="mb-8 flex items-center gap-2 text-sm text-gray-400 font-medium">
+          <Link to={getPath("/")} className="hover:text-brand-green transition-colors">{isRTL ? 'الرئيسية' : 'Home'}</Link>
+          <Arrow className="w-3 h-3 opacity-50" />
+          <Link to={getPath("/products")} className="hover:text-brand-green transition-colors">{isRTL ? 'المنتجات' : 'Products'}</Link>
+          <Arrow className="w-3 h-3 opacity-50" />
+          <span className="text-gray-900 line-clamp-1">{name}</span>
+        </nav>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            
-            {/* Left Column: Gallery & Details */}
-            <div className="lg:col-span-7 space-y-10">
-              {/* Image Gallery */}
-              <div className="space-y-4">
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-brand-lg border border-gray-100 bg-white group">
-                  {images.length > 0 ? (
-                    <AnimatePresence mode="wait">
-                      <motion.img
-                        key={currentImageIndex}
-                        src={images[currentImageIndex]}
-                        alt={`${name} - View ${currentImageIndex + 1}`}
-                        initial={{ opacity: 0, scale: 1.05 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          console.error("Image failed to load", images[currentImageIndex]);
-                          (e.target as HTMLImageElement).src = 'https://via.placeholder.com/800x600?text=Image+Not+Found';
-                        }}
-                      />
-                    </AnimatePresence>
-                  ) : (
-                    <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                      <Package className="w-12 h-12 text-gray-300" />
-                    </div>
-                  )}
-                  
-                  {images.length > 1 && (
-                    <>
-                      <button 
-                        onClick={isRTL ? nextImage : prevImage}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md shadow-md flex items-center justify-center text-gray-800 hover:bg-white hover:text-brand-green transition-all opacity-0 group-hover:opacity-100"
-                      >
-                        <ChevronLeft className="w-6 h-6" />
-                      </button>
-                      <button 
-                        onClick={isRTL ? prevImage : nextImage}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md shadow-md flex items-center justify-center text-gray-800 hover:bg-white hover:text-brand-green transition-all opacity-0 group-hover:opacity-100"
-                      >
-                        <ChevronRight className="w-6 h-6" />
-                      </button>
-                    </>
-                  )}
-                  
-                  <div className="absolute top-6 left-6 flex flex-col gap-2">
-                    <span className="px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-gray-100 text-brand-green text-sm font-bold shadow-sm">
-                      {product.category_slug?.toUpperCase()}
-                    </span>
-                    {specs.purity && (
-                      <span className="px-4 py-1.5 rounded-full bg-brand-gold text-white text-sm font-bold shadow-sm">
-                        {specs.purity} Purity
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Thumbnails */}
-                {images.length > 1 && (
-                  <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-                    {images.map((img: string, idx: number) => (
-                      <button
-                        key={idx}
-                        onClick={() => setCurrentImageIndex(idx)}
-                        className={`relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 transition-all ${currentImageIndex === idx ? 'ring-2 ring-brand-green ring-offset-2' : 'opacity-70 hover:opacity-100'}`}
-                      >
-                        <img src={img} alt="" className="w-full h-full object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Description */}
-              <div className="glass-card rounded-3xl p-8 border border-gray-100">
-                <h2 className={`text-2xl font-bold text-gray-900 mb-4 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
-                  {isRTL ? 'تفاصيل المنتج' : 'Product Description'}
-                </h2>
-                <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-wrap">
-                  {description}
-                </p>
-              </div>
-
-              {/* Uses & Benefits Sections */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="glass-card rounded-3xl p-8 border border-gray-100">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-green/10 flex items-center justify-center mb-6">
-                    <Leaf className="w-6 h-6 text-brand-green" />
-                  </div>
-                  <h2 className={`text-2xl font-bold text-gray-900 mb-4 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
-                    {isRTL ? 'الاستخدامات والتطبيقات' : 'Uses & Applications'}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed">
-                    {isRTL 
-                      ? 'يستخدم هذا المنتج في العديد من الصناعات الغذائية والدوائية ومستحضرات التجميل لجودته العالية ونقائه التام.'
-                      : 'This product is widely used in food, pharmaceutical, and cosmetic industries due to its high quality and purity.'}
-                  </p>
-                </div>
-
-                <div className="glass-card rounded-3xl p-8 border border-gray-100">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-gold/10 flex items-center justify-center mb-6">
-                    <ShieldCheck className="w-6 h-6 text-brand-gold" />
-                  </div>
-                  <h2 className={`text-2xl font-bold text-gray-900 mb-4 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
-                    {isRTL ? 'الفوائد الصحية' : 'Health Benefits'}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed">
-                    {isRTL
-                      ? 'يحتوي على خصائص طبيعية تعزز الصحة العامة وتوفر فوائد غذائية أساسية لمختلف الاستخدامات.'
-                      : 'Contains natural properties that promote overall health and provide essential nutritional benefits for various applications.'}
-                  </p>
-                </div>
-              </div>
-
-              {/* Packaging & Export */}
-              <div className="glass-card rounded-3xl p-8 border border-gray-100">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center">
-                    <Package className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <h2 className={`text-2xl font-bold text-gray-900 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
-                    {isRTL ? 'التعبئة والتصدير' : 'Packaging & Export'}
-                  </h2>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                  <div className="p-4 bg-gray-50 rounded-2xl">
-                    <div className="font-bold text-gray-900 mb-1">{isRTL ? 'أوزان التعبئة' : 'Weights'}</div>
-                    <div className="text-sm text-gray-500">10kg, 20kg, 25kg PP bags</div>
-                  </div>
-                  <div className="p-4 bg-gray-50 rounded-2xl">
-                    <div className="font-bold text-gray-900 mb-1">{isRTL ? 'سعة الحاوية' : 'FCL Capacity'}</div>
-                    <div className="text-sm text-gray-500">6 - 12 Tons per 20ft</div>
-                  </div>
-                  <div className="p-4 bg-gray-50 rounded-2xl">
-                    <div className="font-bold text-gray-900 mb-1">{isRTL ? 'المنشأ' : 'Origin'}</div>
-                    <div className="text-sm text-gray-500">{isRTL ? 'مصر' : 'Egypt (Alraheeq Farms)'}</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Technical Specs Table */}
-              {hasSpecs && (
-                <div className="glass-card rounded-3xl p-8 border border-gray-100">
-                  <h2 className={`text-2xl font-bold text-gray-900 mb-6 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
-                    {isRTL ? 'المواصفات الفنية' : 'Technical Specifications'}
-                  </h2>
-                  <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white">
-                    <table className="w-full text-left" dir={isRTL ? 'rtl' : 'ltr'}>
-                      <tbody className="divide-y divide-gray-100">
-                        {Object.entries(specs).map(([key, value], idx) => (
-                          <tr key={key} className={idx % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}>
-                            <th className="px-6 py-4 text-sm font-medium text-gray-900 w-1/3">
-                              {formatKey(key)}
-                            </th>
-                            <td className="px-6 py-4 text-sm text-gray-600">
-                              {String(value)}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          
+          {/* Gallery Column - Smaller and Constrained */}
+          <div className="space-y-6">
+            <div className="relative aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-gray-100 bg-gray-50">
+              {images.length > 0 ? (
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentImageIndex}
+                    src={getImgUrl(images[currentImageIndex])}
+                    alt={name}
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="w-full h-full object-cover"
+                  />
+                </AnimatePresence>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-200">
+                  <Package className="w-20 h-20" />
                 </div>
               )}
+              
+              <div className="absolute top-4 left-4">
+                <span className="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-brand-green text-xs font-bold uppercase tracking-widest border border-gray-100 shadow-sm">
+                  {product.category_slug}
+                </span>
+              </div>
             </div>
 
-            {/* Right Column: Sticky Action Panel */}
-            <div className="lg:col-span-5 relative">
-              <div className="sticky top-28 space-y-6">
-                
-                {/* Product Header & Highlights */}
-                <div>
-                  <h1 className={`text-4xl lg:text-5xl font-bold text-gray-900 mb-6 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
-                    {name}
-                  </h1>
-                  
-                  <div className="flex flex-wrap items-center gap-4 mb-8">
-                    <div className="flex items-center gap-2 bg-brand-beige px-4 py-2 rounded-full border border-brand-gold/20">
-                      <MapPin className="w-4 h-4 text-brand-gold" />
-                      <span className="text-sm font-medium text-gray-800">{product.origin || 'Egypt'}</span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-brand-green/5 px-4 py-2 rounded-full border border-brand-green/20">
-                      <ShieldCheck className="w-4 h-4 text-brand-green" />
-                      <span className="text-sm font-medium text-gray-800">100% Certified</span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-200">
-                      <Package className="w-4 h-4 text-gray-500" />
-                      <span className="text-sm font-medium text-gray-800">Export Ready</span>
-                    </div>
-                  </div>
+            {/* Thumbnails */}
+            {images.length > 1 && (
+              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                {images.map((img: string, idx: number) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImageIndex(idx)}
+                    className={`relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 transition-all border-2 ${currentImageIndex === idx ? 'border-brand-green scale-105 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                  >
+                    <img src={getImgUrl(img)} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
-                  <ul className="space-y-3 mb-8">
-                    {['Premium Quality Guaranteed', 'Customizable Packaging Available', 'Global Shipping'].map((feat, i) => (
-                      <li key={i} className="flex items-center gap-3 text-gray-600">
-                        <div className="w-6 h-6 rounded-full bg-brand-green/10 flex items-center justify-center flex-shrink-0">
-                          <Check className="w-3.5 h-3.5 text-brand-green" />
-                        </div>
-                        <span className={isRTL ? 'font-body-ar' : 'font-body-en'}>
-                          {isRTL && i===0 ? 'جودة عالية مضمونة' : isRTL && i===1 ? 'تعبئة مخصصة متاحة' : isRTL && i===2 ? 'شحن عالمي' : feat}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+          {/* Content Column */}
+            <div className={`flex flex-col ${isRTL ? 'text-right' : 'text-left'}`}>
+              <motion.div
+                initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
+                animate={{ opacity: 1, x: 0 }}
+              >
+                <h1 className={`text-4xl lg:text-7xl font-bold text-gray-900 mb-6 leading-[1.1] tracking-tight ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+                  {name}
+                </h1>
+
+                {/* Quick Highlights */}
+                <div className="flex flex-wrap gap-3 mb-8">
+                  <div className="flex items-center gap-2 bg-brand-green/5 px-4 py-2 rounded-xl border border-brand-green/10">
+                    <MapPin className="w-4 h-4 text-brand-gold" />
+                    <span className="text-sm font-bold text-brand-green/80 uppercase tracking-wider">
+                      {product.origin || (isRTL ? 'مصر' : 'Egypt')}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-brand-green/5 px-4 py-2 rounded-xl border border-brand-green/10">
+                    <ShieldCheck className="w-4 h-4 text-brand-green" />
+                    <span className="text-sm font-bold text-brand-green/80 uppercase tracking-wider">
+                      {isRTL ? 'جودة تصدير' : 'Export Grade'}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Inquiry Form Component */}
-                <InquiryForm productName={name} productId={product.id} />
+                <div className="prose prose-lg text-gray-500 mb-10 max-w-none">
+                  <p className="text-xl leading-relaxed whitespace-pre-wrap font-medium lg:pr-12">
+                    {/* If description is too long or contains specs-like text, we can truncate or format it */}
+                    {description?.length > 300 ? `${description.substring(0, 300)}...` : description}
+                  </p>
+                </div>
 
-                {/* Quick WhatsApp Contact */}
-                <div className="mt-6 text-center">
-                  <p className="text-sm text-gray-500 mb-3">{isRTL ? 'أو تواصل معنا مباشرة عبر' : 'Or contact us directly via'}</p>
+                <div className="flex flex-wrap items-center gap-4 pt-8 border-t border-gray-100">
+                  <a 
+                    href="#inquiry" 
+                    className="flex-1 min-w-[220px] px-10 py-5 bg-[#1c4b42] text-[#b4e717] font-bold rounded-2xl hover:bg-[#b4e717] hover:text-[#1c4b42] transition-all shadow-2xl shadow-[#1c4b42]/20 flex items-center justify-center gap-3 group"
+                  >
+                    {isRTL ? 'اطلب عرض سعر' : 'Request a Quote'}
+                    <Arrow className={`w-5 h-5 transition-transform group-hover:${isRTL ? '-translate-x-1' : 'translate-x-1'}`} />
+                  </a>
                   <a
                     href={`https://wa.me/201014167512?text=${encodeURIComponent(
                       isRTL 
                         ? `مرحباً، أريد الاستفسار عن منتج: ${name}`
                         : `Hello, I'm inquiring about: ${name}`
                     )}`}
-                    onClick={() => trackEvent('click_whatsapp', product.id)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#25D366]/10 text-[#25D366] font-bold hover:bg-[#25D366] hover:text-white transition-all w-full"
+                    className="px-10 py-5 border-2 border-gray-100 text-gray-900 font-bold rounded-2xl hover:border-brand-green hover:text-brand-green transition-all"
                   >
                     WhatsApp
                   </a>
                 </div>
+              </motion.div>
+            </div>
+        </div>
 
+        {/* Technical Specs Section - One Place Only */}
+        <div className="mt-24 pt-24 border-t border-gray-100">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+            
+            <div className="lg:col-span-2">
+              <h2 className={`text-3xl font-bold text-gray-900 mb-10 flex items-center gap-4 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+                <span className="w-2 h-10 bg-brand-green rounded-full" />
+                {isRTL ? 'المواصفات الفنية' : 'Technical Specifications'}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+                {Object.entries(specs).map(([key, value]) => (
+                  <div key={key} className="flex justify-between py-4 border-b border-gray-50 group hover:bg-gray-50 transition-colors px-4 rounded-xl">
+                    <span className="text-gray-400 font-bold text-sm uppercase">{formatKey(key)}</span>
+                    <span className="text-gray-900 font-bold">{String(value)}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
+            <div>
+              <div className="bg-[#1c4b42] rounded-[2rem] p-10 text-white relative overflow-hidden shadow-2xl">
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#b4e717]/10 rounded-full blur-3xl" />
+                <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                  <Package className="w-6 h-6 text-[#b4e717]" />
+                  {isRTL ? 'التعبئة والشحن' : 'Packaging & Shipping'}
+                </h3>
+                <div className="space-y-6">
+                  <div>
+                    <div className="text-[#b4e717] text-xs font-bold uppercase tracking-widest mb-2">{isRTL ? 'أوزان التعبئة' : 'Weights'}</div>
+                    <div className="text-lg font-medium">10kg, 20kg, 25kg PP bags</div>
+                  </div>
+                  <div>
+                    <div className="text-[#b4e717] text-xs font-bold uppercase tracking-widest mb-2">{isRTL ? 'سعة الحاوية' : 'FCL Capacity'}</div>
+                    <div className="text-lg font-medium">6 - 12 Tons per 20ft</div>
+                  </div>
+                  <div className="pt-6 border-t border-white/10">
+                    <div className="flex items-center gap-2 text-sm text-gray-300">
+                      <Check className="w-4 h-4 text-[#b4e717]" />
+                      {isRTL ? 'متاح فحص خارجي (SGS)' : 'External inspection available (SGS)'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </main>
+
+        {/* Uses & Benefits */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+          <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100">
+            <h4 className="text-xl font-bold text-gray-900 mb-4">{isRTL ? 'الاستخدامات' : 'Uses'}</h4>
+            <p className="text-gray-600 font-medium leading-relaxed">
+              {isRTL 
+                ? 'يستخدم هذا المنتج في العديد من الصناعات الغذائية والدوائية ومستحضرات التجميل لجودته العالية ونقائه التام.'
+                : 'This product is widely used in food, pharmaceutical, and cosmetic industries due to its high quality and purity.'}
+            </p>
+          </div>
+          <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100">
+            <h4 className="text-xl font-bold text-gray-900 mb-4">{isRTL ? 'المزايا' : 'Benefits'}</h4>
+            <p className="text-gray-600 font-medium leading-relaxed">
+              {isRTL
+                ? 'يحتوي على خصائص طبيعية تعزز الصحة العامة وتوفر فوائد غذائية أساسية لمختلف الاستخدامات.'
+                : 'Contains natural properties that promote overall health and provide essential nutritional benefits for various applications.'}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Inquiry Section */}
+      <section id="inquiry" className="mt-24 bg-gray-50 py-24">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className={`text-4xl font-bold text-gray-900 mb-4 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+              {isRTL ? 'اطلب تسعير لهذا المنتج' : 'Request Pricing for This Product'}
+            </h2>
+            <p className="text-gray-500 font-medium">
+              {isRTL ? 'سوف يقوم فريقنا بالرد عليك خلال أقل من 24 ساعة بمواصفات العرض الكاملة.' : 'Our team will respond with a full quote within 24 hours.'}
+            </p>
+          </div>
+          <div className="bg-white rounded-[3rem] p-8 md:p-12 shadow-xl border border-gray-100">
+            <InquiryForm productName={name} productId={product.id} />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 
