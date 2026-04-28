@@ -94,7 +94,7 @@ export default function Navbar() {
               <img
                 src="https://cdn-ai.onspace.ai/onspace/project/uploads/MoJYwGH33bc9qvJ38ADo9Y/AlraheeqLogoWeb.png"
                 alt="Alraheeq Herbs"
-                className="h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className={`h-12 w-auto object-contain transition-all duration-300 group-hover:scale-105 ${!showSolid ? 'brightness-0 invert' : ''}`}
               />
             </Link>
 
@@ -106,7 +106,9 @@ export default function Navbar() {
                       to={getPath(link.href)}
                       className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         isActive(link.href)
-                          ? 'text-brand-green bg-brand-green/10'
+                          ? showSolid 
+                            ? 'text-brand-green bg-brand-green/10' 
+                            : 'text-[#b4e717] bg-white/10'
                           : showSolid
                           ? 'text-gray-700 hover:text-brand-green hover:bg-brand-green/5'
                           : 'text-white hover:text-brand-gold'
@@ -133,7 +135,9 @@ export default function Navbar() {
                     to={getPath(link.href)}
                     className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isActive(link.href)
-                        ? 'text-brand-green bg-brand-green/10'
+                        ? showSolid 
+                          ? 'text-brand-green bg-brand-green/10' 
+                          : 'text-[#b4e717] bg-white/10'
                         : showSolid
                         ? 'text-gray-700 hover:text-brand-green hover:bg-brand-green/5'
                         : 'text-white hover:text-brand-gold'

@@ -125,7 +125,7 @@ function HeroSection() {
               imgClassName="w-full h-full object-cover"
             />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1c4b42]/80 via-[#1c4b42]/40 to-[#1c4b42]/90 z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a231f]/90 via-[#1c4b42]/40 to-[#1c4b42]/90 z-10 pointer-events-none" />
         </div>
 
         {/* Content */}
