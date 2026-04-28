@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { mediaApi } from '@/api/api';
 import { X, Upload, Image as ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
+import { getImgUrl } from '@/editor/utils';
 
 interface MediaLibraryModalProps {
   isOpen: boolean;
@@ -108,7 +109,7 @@ export function MediaLibraryModal({ isOpen, onClose, onSelect }: MediaLibraryMod
                       className="group relative aspect-square rounded-2xl overflow-hidden bg-white border border-gray-200 cursor-pointer hover:border-brand-green hover:shadow-xl transition-all"
                     >
                       <img 
-                        src={item.url} 
+                        src={getImgUrl(item.url)} 
                         alt={item.filename}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
