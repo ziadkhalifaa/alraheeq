@@ -161,7 +161,7 @@ export default function Products() {
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="h-[400px] rounded-[2.5rem] bg-gray-100 animate-pulse" />
+                <div key={i} className="h-[400px] rounded-2xl bg-gray-100 animate-pulse" />
               ))}
             </div>
           ) : isError ? (
@@ -169,8 +169,8 @@ export default function Products() {
               Error loading products. Please try again later.
             </div>
           ) : !products || products.length === 0 ? (
-            <div className="text-center py-20 bg-gray-50 rounded-[3rem] border-2 border-dashed border-gray-100">
-              <Package className="w-16 h-16 text-gray-200 mx-auto mb-4" />
+            <div className="text-center py-20 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-100">
+              <Package className="w-12 h-12 text-gray-200 mx-auto mb-4" />
               <p className="text-gray-400 text-lg font-bold">{isRTL ? 'لا توجد منتجات في هذا القسم حالياً' : 'No products found in this category'}</p>
             </div>
           ) : (
@@ -234,14 +234,14 @@ export default function Products() {
       {/* CTA */}
       <section className="py-20 bg-brand-beige">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="glass-card rounded-3xl p-10">
-            <h2 className={`text-3xl font-bold text-gray-900 mb-3 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+          <div className="bg-white rounded-2xl p-10 shadow-xl border border-gray-100">
+            <h2 className={`text-2xl md:text-3xl font-bold text-gray-900 mb-3 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
               {t('products.cta.title')}
             </h2>
-            <p className="text-gray-500 mb-8">{t('products.cta.subtitle')}</p>
+            <p className="text-gray-500 mb-8 max-w-xl mx-auto">{t('products.cta.subtitle')}</p>
             <Link
               to={getPath("/contact")}
-              className="btn-magnetic inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-brand-gradient text-white font-semibold shadow-brand hover:shadow-brand-lg transition-all duration-300 hover:-translate-y-1 group"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#1c4b42] text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 group"
             >
               {t('products.cta.btn')}
               <Arrow className="w-5 h-5 transition-transform group-hover:translate-x-1" />

@@ -103,7 +103,7 @@ export default function Certificates() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {isLoading ? (
               [...Array(3)].map((_, i) => (
-                <div key={i} className="aspect-[4/5] rounded-[2.5rem] bg-gray-50 animate-pulse border border-gray-100" />
+                <div key={i} className="aspect-[4/5] rounded-2xl bg-gray-50 animate-pulse border border-gray-100" />
               ))
             ) : certs && certs.length > 0 ? (
               certs.map((cert: any, i: number) => {
@@ -117,7 +117,7 @@ export default function Certificates() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className="group relative h-full flex flex-col bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden"
+                    className="group relative h-full flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
                   >
                     <div className="aspect-video overflow-hidden bg-gray-50">
                       <img 
@@ -139,7 +139,7 @@ export default function Certificates() {
                       </p>
                     </div>
                     {/* Floating check badge */}
-                    <div className="absolute top-6 right-6 w-10 h-10 bg-[#86c434] text-white rounded-full flex items-center justify-center shadow-lg transform scale-0 group-hover:scale-100 transition-transform duration-500">
+                    <div className="absolute top-4 right-4 w-10 h-10 bg-[#86c434] text-white rounded-full flex items-center justify-center shadow-lg transform scale-0 group-hover:scale-100 transition-transform duration-300">
                       <CheckCircle className="w-6 h-6" />
                     </div>
                   </motion.div>
@@ -194,12 +194,12 @@ export default function Certificates() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex items-center gap-5 p-6 bg-white rounded-3xl border border-[#1c4b42]/5 shadow-sm hover:shadow-xl hover:border-[#86c434]/50 transition-all group"
+                  className="flex items-center gap-4 p-5 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all group"
                 >
-                  <div className="w-14 h-14 bg-[#1c4b42]/5 rounded-2xl flex items-center justify-center group-hover:bg-[#1c4b42] transition-colors">
-                    <req.icon className="w-7 h-7 text-[#1c4b42] group-hover:text-white" />
+                  <div className="w-12 h-12 bg-[#1c4b42]/5 rounded-lg flex items-center justify-center group-hover:bg-[#1c4b42] transition-colors">
+                    <req.icon className="w-6 h-6 text-[#1c4b42] group-hover:text-white" />
                   </div>
-                  <span className="text-lg font-bold text-[#1c4b42]">
+                  <span className="text-base font-bold text-[#1c4b42]">
                     <EditableText contentKey={req.key} defaultAr={req.labelAr} defaultEn={req.labelEn} />
                   </span>
                 </motion.div>
@@ -218,7 +218,7 @@ export default function Certificates() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="p-20 rounded-[4rem] bg-[#1c4b42] text-white relative overflow-hidden"
+            className="p-12 md:p-16 rounded-2xl bg-[#1c4b42] text-white relative overflow-hidden shadow-xl"
           >
             <div className="absolute top-0 left-0 w-full h-full pattern-grid opacity-10" />
             <div className="relative z-10">
@@ -229,8 +229,8 @@ export default function Certificates() {
                   defaultEn="Do you need copies of our certificates?" 
                 />
               </h2>
-              <div className="flex flex-wrap justify-center gap-6">
-                <a href="/contact" className="px-12 py-5 bg-[#86c434] text-[#1c4b42] font-bold rounded-[2rem] hover:bg-white hover:scale-105 transition-all">
+              <div className="flex flex-wrap justify-center gap-4">
+                <a href="/contact" className="px-10 py-4 bg-[#b4e717] text-[#1c4b42] font-bold rounded-xl hover:shadow-lg transition-all">
                   {isRTL ? 'تواصل معنا الآن' : 'Contact Us Now'}
                 </a>
               </div>

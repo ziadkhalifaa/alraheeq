@@ -137,8 +137,8 @@ function HeroSection() {
             className="flex flex-col items-center"
           >
             {/* Premium Badge */}
-            <motion.div variants={itemVariants} className="mb-8">
-              <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md shadow-2xl">
+            <motion.div variants={itemVariants} className="mb-6">
+              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
                 <div className="w-2 h-2 rounded-full bg-[#b4e717] animate-pulse shadow-[0_0_12px_#b4e717]" />
                 <span className="text-white/90 text-sm font-medium tracking-wide">
                   <EditableText 
@@ -153,7 +153,7 @@ function HeroSection() {
             {/* Main Title */}
             <motion.h1 
               variants={itemVariants}
-              className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-[1.2] ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}
+              className={`text-4xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.1] ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}
             >
               <EditableText 
                 contentKey="home.hero.title1"
@@ -168,7 +168,7 @@ function HeroSection() {
                 />
               </span>
               <br />
-              <span className="text-2xl sm:text-3xl lg:text-4xl font-light text-white/70 mt-4 block">
+              <span className="text-xl md:text-2xl lg:text-3xl font-medium text-white/80 mt-4 block">
                 <EditableText 
                   contentKey="home.hero.title3"
                   defaultAr="إلى كل ركن في العالم"
@@ -192,14 +192,14 @@ function HeroSection() {
             {/* Buttons */}
             <motion.div 
               variants={itemVariants}
-              className="flex flex-col sm:flex-row items-center justify-center gap-6"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <EditableButton 
                 contentKey="home.hero.btn1"
                 defaultAr="طلب تسعير سريع"
                 defaultEn="Fast Quote Request"
                 defaultHref="/contact"
-                className="group relative overflow-hidden px-10 py-5 rounded-full bg-[#b4e717] text-[#1c4b42] font-bold text-lg shadow-[0_10px_30px_rgba(180,231,23,0.3)] hover:shadow-[0_15px_40px_rgba(180,231,23,0.4)] transition-all duration-500 hover:-translate-y-1"
+                className="group relative overflow-hidden px-8 py-4 rounded-xl bg-[#b4e717] text-[#1c4b42] font-bold text-base shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
                 icon={<ArrowRight className={`w-5 h-5 transition-transform ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`} />}
               />
               <EditableButton 
@@ -207,7 +207,7 @@ function HeroSection() {
                 defaultAr="استكشف منتجاتنا"
                 defaultEn="Explore Products"
                 defaultHref="/products"
-                className="px-10 py-5 rounded-full border-2 border-white/20 text-white font-bold text-lg hover:bg-white hover:text-[#1c4b42] hover:border-white transition-all duration-500"
+                className="px-8 py-4 rounded-xl border border-white/30 text-white font-bold text-base hover:bg-white hover:text-[#1c4b42] transition-all duration-300"
                 icon={<Play className="w-4 h-4" />}
               />
             </motion.div>
@@ -223,7 +223,7 @@ function HeroSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="max-w-6xl mx-auto bg-white rounded-[3rem] p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100"
+        className="max-w-6xl mx-auto bg-white rounded-2xl p-8 shadow-xl border border-gray-100"
       >
         <div className="grid grid-cols-4 divide-x divide-gray-100 rtl:divide-x-reverse">
           {stats.map((stat, i) => (
@@ -275,7 +275,7 @@ function IntroSection() {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
             >
-              <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl aspect-square">
+              <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl aspect-square">
                 <EditableImage
                   contentKey="home.intro.imgMain"
                   defaultSrc={aboutBg}
@@ -287,13 +287,13 @@ function IntroSection() {
               
               {/* Floating Decorative Elements */}
               <motion.div 
-                animate={{ y: [0, -20, 0] }}
+                animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-10 -right-10 z-20 glass-card rounded-[2rem] p-8 shadow-2xl border border-white/50 backdrop-blur-2xl"
+                className="absolute -bottom-8 -right-8 z-20 bg-white rounded-xl p-6 shadow-2xl border border-gray-100"
               >
-                <div className="flex items-center gap-5">
-                  <div className="w-16 h-16 rounded-2xl bg-[#1c4b42] flex items-center justify-center shadow-lg">
-                    <Award className="w-8 h-8 text-[#b4e717]" />
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-[#1c4b42] flex items-center justify-center shadow-lg">
+                    <Award className="w-6 h-6 text-[#b4e717]" />
                   </div>
                   <div>
                     <div className="text-3xl font-black text-[#1c4b42]">15+</div>
@@ -355,11 +355,11 @@ function IntroSection() {
                 {features.map((feature, i) => (
                   <motion.div
                     key={i}
-                    whileHover={{ scale: 1.02 }}
-                    className="flex items-center gap-3 p-4 rounded-2xl bg-gray-50 border border-gray-100 hover:border-[#b4e717]/30 hover:bg-[#b4e717]/5 transition-all"
+                    whileHover={{ y: -5 }}
+                    className="flex items-center gap-3 p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#1c4b42]/20 hover:bg-white hover:shadow-md transition-all"
                   >
-                    <div className="w-8 h-8 rounded-full bg-[#1c4b42] flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="w-4 h-4 text-[#b4e717]" />
+                    <div className="w-6 h-6 rounded-full bg-[#1c4b42] flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#b4e717]" />
                     </div>
                     <span className="text-sm font-bold text-[#1c4b42]">
                       <EditableText 
@@ -472,8 +472,8 @@ function ProcessSection() {
                   transition={{ duration: 0.8, ease: "easeOut" }}
                   className="flex-1 text-center md:text-left rtl:md:text-right"
                 >
-                  <div className="inline-flex items-center justify-center w-24 h-24 rounded-[2rem] bg-white/5 border border-white/10 text-[#b4e717] mb-8 shadow-2xl">
-                    <step.icon className="w-12 h-12" />
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-white/5 border border-white/10 text-[#b4e717] mb-6">
+                    <step.icon className="w-8 h-8" />
                   </div>
                   <h3 className={`text-2xl md:text-3xl font-black text-white mb-6 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
                     <EditableText contentKey={`${step.key}.title`} defaultAr={step.titleAr} defaultEn={step.titleEn} />
@@ -579,15 +579,15 @@ function WhyUsSection() {
             {reasons.map((reason, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="bg-white p-10 rounded-[3rem] shadow-xl border border-gray-100 hover:border-[#b4e717]/30 transition-all duration-500 group"
+                whileHover={{ y: -8 }}
+                className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:border-[#1c4b42]/10 transition-all duration-300"
               >
-                <div className="w-20 h-20 rounded-3xl bg-[#1c4b42]/5 flex items-center justify-center mb-8 group-hover:bg-[#1c4b42] transition-all duration-500">
-                  <reason.icon className="w-10 h-10 text-[#1c4b42] group-hover:text-[#b4e717] transition-all" />
+                <div className="w-14 h-14 rounded-xl bg-[#1c4b42]/5 flex items-center justify-center mb-6 group-hover:bg-[#1c4b42] transition-all">
+                  <reason.icon className="w-7 h-7 text-[#1c4b42] group-hover:text-[#b4e717]" />
                 </div>
                 <h3 className={`text-2xl font-bold text-[#1c4b42] mb-4 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
                   <EditableText contentKey={reason.titleKey} defaultAr={reason.titleAr} defaultEn={reason.titleEn} />
@@ -702,12 +702,12 @@ function CategoriesSection() {
             {categories.map((cat, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                whileHover={{ y: -15 }}
-                className="group relative aspect-[3/4] rounded-[3.5rem] overflow-hidden shadow-2xl"
+                whileHover={{ y: -10 }}
+                className="group relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl"
               >
                 <EditableImage
                   contentKey={cat.imageKey}

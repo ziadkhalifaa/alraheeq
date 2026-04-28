@@ -85,7 +85,7 @@ export default function Navbar() {
 
       <nav
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
-          showSolid ? 'navbar-glass shadow-sm py-3' : 'bg-transparent py-5'
+          showSolid ? 'navbar-glass shadow-lg py-2' : 'bg-transparent py-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,14 +104,14 @@ export default function Navbar() {
                   <div key={link.href} className="relative group">
                     <Link
                       to={getPath(link.href)}
-                      className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${
                         isActive(link.href)
                           ? showSolid 
-                            ? 'text-brand-green bg-brand-green/10' 
+                            ? 'text-brand-green bg-brand-green/5' 
                             : 'text-[#b4e717] bg-white/10'
                           : showSolid
                           ? 'text-gray-700 hover:text-brand-green hover:bg-brand-green/5'
-                          : 'text-white hover:text-brand-gold'
+                          : 'text-white/90 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       {link.label}
@@ -133,14 +133,14 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     to={getPath(link.href)}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    className={`px-3 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${
                       isActive(link.href)
                         ? showSolid 
-                          ? 'text-brand-green bg-brand-green/10' 
+                          ? 'text-brand-green bg-brand-green/5' 
                           : 'text-[#b4e717] bg-white/10'
                         : showSolid
                         ? 'text-gray-700 hover:text-brand-green hover:bg-brand-green/5'
-                        : 'text-white hover:text-brand-gold'
+                        : 'text-white/90 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     {link.label}

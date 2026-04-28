@@ -108,10 +108,10 @@ export default function Contact() {
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="bg-white p-10 rounded-[3rem] shadow-2xl border border-[#1c4b42]/5 relative overflow-hidden"
+                className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 relative overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#1c4b42]/5 rounded-full -mr-16 -mt-16" />
-                <h3 className={`text-3xl font-black text-[#1c4b42] mb-8 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+                <h3 className={`text-2xl font-bold text-[#1c4b42] mb-8 ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
                   {isRTL ? 'معلومات التواصل' : 'Contact Info'}
                 </h3>
                 <div className="space-y-6">
@@ -123,14 +123,14 @@ export default function Contact() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.1 }}
-                      className="flex items-center gap-6 p-4 rounded-3xl hover:bg-[#f7fbf2] transition-all group"
+                      className="flex items-center gap-5 p-4 rounded-xl hover:bg-gray-50 transition-all group"
                     >
-                      <div className={`w-14 h-14 ${item.color} rounded-[1.25rem] flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform`}>
-                        <item.icon className="w-7 h-7 text-white" />
+                      <div className={`w-12 h-12 ${item.color} rounded-lg flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform`}>
+                        <item.icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-1">{item.label}</p>
-                        <p className="text-lg font-black text-[#1c4b42] group-hover:text-[#86c434] transition-colors" dir="ltr">{item.value}</p>
+                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">{item.label}</p>
+                        <p className="text-base font-bold text-[#1c4b42] group-hover:text-[#86c434] transition-colors" dir="ltr">{item.value}</p>
                       </div>
                     </motion.a>
                   ))}
@@ -142,15 +142,15 @@ export default function Contact() {
                     href="https://wa.me/201010213937"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between p-6 bg-[#25D366] rounded-[2rem] text-white shadow-xl hover:scale-[1.02] transition-all group"
+                    className="flex items-center justify-between p-5 bg-[#25D366] rounded-xl text-white shadow-lg hover:shadow-xl transition-all group"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
-                        <MessageSquare className="w-6 h-6" />
+                      <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                        <MessageSquare className="w-5 h-5" />
                       </div>
-                      <span className="font-black text-lg">{isRTL ? 'ابدأ الدردشة' : 'Start Chatting'}</span>
+                      <span className="font-bold text-base">{isRTL ? 'ابدأ الدردشة' : 'Start Chatting'}</span>
                     </div>
-                    <Send className={`w-6 h-6 transition-transform group-hover:translate-x-2 ${isRTL ? 'rotate-180 group-hover:-translate-x-2' : ''}`} />
+                    <Send className={`w-5 h-5 transition-transform group-hover:translate-x-1 ${isRTL ? 'rotate-180 group-hover:-translate-x-1' : ''}`} />
                   </a>
                 </div>
               </motion.div>
@@ -161,7 +161,7 @@ export default function Contact() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="h-[300px] rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl relative"
+                className="h-[300px] rounded-2xl overflow-hidden border-4 border-white shadow-xl relative"
               >
                 <iframe
                   title="Alraheeq Herbs Location"
@@ -179,7 +179,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-white p-12 md:p-16 rounded-[4rem] shadow-2xl border border-[#1c4b42]/5"
+                className="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100"
               >
                 <AnimatePresence mode="wait">
                   {sent ? (
@@ -203,15 +203,15 @@ export default function Contact() {
                     </motion.div>
                   ) : (
                     <motion.div key="form">
-                      <div className="flex items-center gap-4 mb-12">
-                        <div className="w-16 h-16 bg-[#1c4b42] rounded-2xl flex items-center justify-center">
-                          <Send className="w-8 h-8 text-white" />
+                      <div className="flex items-center gap-4 mb-10">
+                        <div className="w-12 h-12 bg-[#1c4b42] rounded-lg flex items-center justify-center">
+                          <Send className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                          <h2 className={`text-4xl font-black text-[#1c4b42] ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
+                          <h2 className={`text-2xl font-bold text-[#1c4b42] ${isRTL ? 'font-heading-ar' : 'font-heading-en'}`}>
                             {t('contact.form.title')}
                           </h2>
-                          <p className="text-gray-400 font-bold">{t('contact.cta.title')}</p>
+                          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{t('contact.cta.title')}</p>
                         </div>
                       </div>
 
@@ -295,13 +295,13 @@ export default function Contact() {
 
                         <button 
                           disabled={sending}
-                          className="w-full py-6 bg-[#1c4b42] text-white font-black text-xl rounded-[2rem] shadow-2xl hover:bg-[#86c434] hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 flex items-center justify-center gap-4"
+                          className="w-full py-4 bg-[#1c4b42] text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50 flex items-center justify-center gap-3"
                         >
                           {sending ? (
-                            <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+                            <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />
                           ) : (
                             <>
-                              <Send size={24} />
+                              <Send size={20} />
                               {t('contact.form.submit')}
                             </>
                           )}

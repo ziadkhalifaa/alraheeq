@@ -140,7 +140,7 @@ export default function About() {
               transition={{ duration: 1 }}
               className="relative"
             >
-              <div className="relative rounded-[3rem] overflow-hidden aspect-square shadow-2xl z-10">
+              <div className="relative rounded-2xl overflow-hidden aspect-square shadow-2xl z-10">
                 <EditableImage 
                   contentKey="about.intro.image"
                   defaultSrc="https://images.unsplash.com/photo-1628251727905-3b4de94de23b?w=800&q=80&auto=format&fit=crop"
@@ -149,8 +149,8 @@ export default function About() {
                   imgClassName="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1c4b42]/60 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-10 left-10 right-10">
-                  <div className="glass rounded-3xl p-6 border border-white/20 backdrop-blur-xl">
+                <div className="absolute bottom-8 left-8 right-8">
+                  <div className="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
                     <div className="flex items-center gap-4">
                       <div className="w-14 h-14 rounded-2xl bg-[#86c434] flex items-center justify-center shadow-lg">
                         <Leaf className="w-8 h-8 text-white" />
@@ -185,7 +185,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-[#1c4b42]/5 text-center group hover:shadow-xl hover:-translate-y-2 transition-all duration-500"
+                className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center group hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
               >
                 <div className="w-16 h-16 bg-[#1c4b42]/5 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-[#86c434] transition-colors duration-500">
                   <stat.icon className="w-8 h-8 text-[#1c4b42] group-hover:text-white transition-colors duration-500" />
@@ -214,12 +214,12 @@ export default function About() {
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="group p-12 rounded-[3.5rem] bg-[#1c4b42] text-white relative overflow-hidden shadow-2xl"
+              className="group p-10 rounded-2xl bg-[#1c4b42] text-white relative overflow-hidden shadow-xl"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl" />
               <div className="relative z-10">
-                <div className="w-20 h-20 bg-white/10 rounded-[2rem] flex items-center justify-center mb-8 backdrop-blur-md border border-white/20">
-                  <Eye className="w-10 h-10 text-[#86c434]" />
+                <div className="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center mb-8 backdrop-blur-md border border-white/20">
+                  <Eye className="w-8 h-8 text-[#86c434]" />
                 </div>
                 <SectionBadge className="mb-4 !bg-white/10 !text-white !border-white/20">
                   <EditableText contentKey="about.vision.badge" defaultAr="رؤيتنا" defaultEn="Our Vision" />
@@ -242,12 +242,12 @@ export default function About() {
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="group p-12 rounded-[3.5rem] bg-[#f7fbf2] border border-[#1c4b42]/10 relative overflow-hidden"
+              className="group p-10 rounded-2xl bg-gray-50 border border-gray-100 relative overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#86c434]/5 rounded-full -ml-32 -mb-32 blur-3xl" />
               <div className="relative z-10">
-                <div className="w-20 h-20 bg-[#1c4b42]/5 rounded-[2rem] flex items-center justify-center mb-8">
-                  <Target className="w-10 h-10 text-[#1c4b42]" />
+                <div className="w-16 h-16 bg-[#1c4b42]/5 rounded-xl flex items-center justify-center mb-8">
+                  <Target className="w-8 h-8 text-[#1c4b42]" />
                 </div>
                 <SectionBadge className="mb-4">
                   <EditableText contentKey="about.mission.badge" defaultAr="رسالتنا" defaultEn="Our Mission" />
@@ -298,10 +298,10 @@ export default function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-500 text-center"
+                className="group p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 text-center"
               >
-                <div className={`w-16 h-16 ${value.color} rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 transition-transform duration-500`}>
-                  <value.icon className="w-8 h-8 text-white" />
+                <div className={`w-14 h-14 ${value.color} rounded-xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-105 transition-transform duration-300`}>
+                  <value.icon className="w-7 h-7 text-white" />
                 </div>
                 <h4 className="text-white font-bold text-lg mb-2">
                   <EditableText contentKey={value.key} defaultAr={value.ar} defaultEn={value.en} />
@@ -320,7 +320,7 @@ export default function About() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="p-16 rounded-[4rem] bg-[#86c434] text-white relative overflow-hidden"
+            className="p-12 md:p-16 rounded-2xl bg-[#1c4b42] text-white relative overflow-hidden shadow-xl"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32" />
             <h2 className="text-4xl font-black mb-8 relative z-10">
@@ -330,11 +330,11 @@ export default function About() {
                 defaultEn="Want to see our products?" 
               />
             </h2>
-            <div className="flex flex-wrap justify-center gap-6 relative z-10">
-              <a href="/products" className="px-10 py-5 bg-[#1c4b42] text-white font-bold rounded-2xl hover:shadow-xl hover:-translate-y-1 transition-all">
+            <div className="flex flex-wrap justify-center gap-4 relative z-10">
+              <a href="/products" className="px-8 py-4 bg-[#b4e717] text-[#1c4b42] font-bold rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all">
                 {isRTL ? 'استعرض منتجاتنا' : 'Browse Products'}
               </a>
-              <a href="/contact" className="px-10 py-5 bg-white text-[#1c4b42] font-bold rounded-2xl hover:shadow-xl hover:-translate-y-1 transition-all">
+              <a href="/contact" className="px-8 py-4 bg-white/10 border border-white/20 text-white font-bold rounded-xl hover:bg-white hover:text-[#1c4b42] transition-all">
                 {isRTL ? 'تواصل معنا' : 'Contact Us'}
               </a>
             </div>
